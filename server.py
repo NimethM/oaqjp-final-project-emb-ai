@@ -1,3 +1,8 @@
+'''deploy a Flask-based web application that enables users to 
+enter a text message and analyzes its content to identify the 
+most likely emotion expressed from a predefined set of five emotions.
+'''
+
 from flask import Flask, request, render_template
 from EmotionDetection.emotion_detection import emotion_detector
 
@@ -5,6 +10,10 @@ app = Flask("Emotion Detector")
 
 @app.route("/emotionDetector")
 def emotion_analyzer():
+    '''Accept the text input provided by the user and submit it to the emotion detection model 
+    for analysis. Then display the confidence score for each of the five emotions, 
+    along with the emotion identified as the most dominant.
+    '''
     text_to_analyse = request.args.get('textToAnalyze')
     emotion_result = emotion_detector(text_to_analyse)
 
@@ -26,6 +35,9 @@ def emotion_analyzer():
 
 @app.route("/")
 def render_index_page():
+    '''Display the index page to the user, allowing them to enter the text they want analyzed 
+    and view the emotion detection results returned by the application.
+    '''
     return render_template('index.html')
 
 if __name__ == "__main__":
